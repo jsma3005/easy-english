@@ -6,6 +6,7 @@ import Select from 'react-dropdown-select';
 import './selectors.css';
 import { fire } from '../../services/firebase';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const levelOptions = [
     {
@@ -158,7 +159,7 @@ const Main = () => {
                     <div className={cls.top}>
                         <h1>Для записи на пробный урок, пожалуйста, заполни поля ниже</h1>
                         <form className={cls.modalForm}>
-                            <input value={phoneInput} onChange={e => setPhoneInput(e.target.value)} type='text' className={phoneInput ? cls.phoneInput : `${cls.phoneInput} ${cls.phoneInputValid}`} placeholder='Телефон' />
+                            <input value={phoneInput} onChange={e => setPhoneInput(e.target.value)} type='number' className={phoneInput ? cls.phoneInput : `${cls.phoneInput} ${cls.phoneInputValid}`} placeholder='Телефон' />
                             <Select 
                                 options={formatOptions}
                                 dropdownHandle={true}
@@ -185,7 +186,7 @@ const Main = () => {
                         <div className={cls.checkBox}>
                             <input onChange={e => setPrivacyCheck(e.target.checked)} checked={privacyCheck} id='check' type='checkbox' />
                             <label htmlFor='check'>
-                                <span>Я согласен на обработку <a href='/privat-policy'>персональных данных</a></span>
+                                <span>Я согласен на обработку <Link to='/privat-policy'>персональных данных</Link></span>
                             </label>
                         </div>
                     </div>
