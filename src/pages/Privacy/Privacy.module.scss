@@ -1,0 +1,65 @@
+.root{
+    padding: 100px;
+    background: linear-gradient(133.75deg, #EBF1FF -5.16%, #F7F4EE 62.6%);
+    .main{
+        p{
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 3rem;
+            letter-spacing: 0.02em;
+        }
+    }
+    .rules{
+        .ruleItem{
+            margin-bottom: 1rem;
+            h1{
+                font-size: 20px;
+                font-weight: 500;
+            }
+            .ruleItemContent{
+                p{
+                    margin: 0;
+                    font-size: 18px;
+                    font-weight: 400;
+                    color: #1E1E29;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+    .root{
+        padding: 70px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .root{
+        padding: 50px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .root{
+        padding: 30px;
+        .privacyTitle{
+            font-size: 1.8em !important;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .root{
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 340px) {
+    .root{
+        .privacyTitle{
+            font-size: 1.6em !important;
+        }
+    }
+}

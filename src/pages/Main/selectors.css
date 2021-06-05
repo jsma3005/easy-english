@@ -1,0 +1,113 @@
+.format{
+    border: none !important;
+    border-bottom: 1px solid #C4C4C4 !important;
+    padding: 1% 3% !important;
+    width: 100% !important;
+    font-weight: 200;
+    margin-bottom: 1.5rem;
+    box-shadow: none !important;
+    color: #757575;
+}
+.format input{
+    font-size: 16px !important;
+}
+.levelSelect{
+    border: none !important;
+    border-bottom: 1px solid #C4C4C4 !important;
+    padding: 1% 3% !important;
+    width: 100% !important;
+    font-weight: 200;
+    margin-bottom: 1.5rem;
+    box-shadow: none !important;
+    color: #757575;
+}
+.levelSelect input, .format input{
+    font-size: 16px !important;
+    margin-left: 0 !important;
+}
+
+.react-dropdown-select-dropdown-position-bottom{
+    width: 100% !important;
+}
+
+
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(1)::before{
+    content: 'A1';
+    margin-right: .5rem;
+    font-weight: bold;
+    color: #2099D0;
+}
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(1)::after{
+    content: 'Базовый';
+    float: right !important;
+    color: #C4C4C4 !important;
+}
+
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(2)::before{
+    content: 'A2';
+    margin-right: .5rem;
+    font-weight: bold;
+    color: #2099D0;
+}
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(2)::after{
+    content: 'Ниже среднего';
+    float: right !important;
+    color: #C4C4C4 !important;
+}
+
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(3)::before{
+    content: 'B1';
+    margin-right: .5rem;
+    font-weight: bold;
+    color: #30BFA7;
+}
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(3)::after{
+    content: 'Средний';
+    float: right !important;
+    color: #C4C4C4 !important;
+}
+
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(4)::before{
+    content: 'B2';
+    margin-right: .5rem;
+    font-weight: bold;
+    color: #2099D0;
+}
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(4)::after{
+    content: 'Выше-сренего';
+    float: right !important;
+    color: #C4C4C4 !important;
+}
+
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(5)::before{
+    content: 'С1';
+    margin-right: .5rem;
+    font-weight: bold;
+    color: #FFA230;
+}
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(5)::after{
+    content: 'Продвинутый';
+    float: right !important;
+    color: #C4C4C4 !important;
+}
+
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(6)::before{
+    content: 'С2';
+    margin-right: .5rem;
+    font-weight: bold;
+    color: #F44D4D;
+}
+.levelSelect .react-dropdown-select-dropdown-position-bottom span:nth-child(6)::after{
+    content: 'Профессиональный';
+    float: right !important;
+    color: #C4C4C4 !important;
+    margin-left: 1rem;
+}
+
+
+
+@media screen and (max-width: 550px) {
+    .levelSelect .react-dropdown-select-dropdown-position-bottom span::after, .levelSelect .react-dropdown-select-dropdown-position-bottom span{
+        font-size: 12px !important;
+    }
+}
