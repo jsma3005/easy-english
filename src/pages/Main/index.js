@@ -7,6 +7,9 @@ import './selectors.css';
 import { fire } from '../../services/firebase';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import InputMask from 'react-input-mask';
+import TimerComponent from '../../components/Timer';
+
 
 const levelOptions = [
     {
@@ -49,23 +52,31 @@ const formatOptions = [
 const Main = () => {
     const [modalActive, setModalActive] = useState(false);
     const [phoneInput, setPhoneInput] = useState('');
+    const [isPhoneError, setIsPhoneError] = useState(false);
     const [formatState, setFormatState] = useState('');
     const [levelState, setLevelState] = useState('');
     const [buttonDisabled, setButtonDisabled] = useState(true);
     const [privacyCheck, setPrivacyCheck] = useState(false);
+    const TIMER = 900000;
     const history = useHistory();
+
 
     useEffect(() => {
         localStorage.removeItem('easyEnglishRegisteredState');
-        if(formatState && levelState && phoneInput && privacyCheck){
-            setButtonDisabled(false);
+        if(formatState && levelState && privacyCheck && !isPhoneError){
+            if(!phoneInput){
+                setButtonDisabled(true);
+            }else{
+                setButtonDisabled(false);
+            }
         }else{
             setButtonDisabled(true);
         }
-    }, [levelState, formatState, phoneInput, privacyCheck])
+    }, [levelState, formatState, phoneInput, privacyCheck, isPhoneError])
 
     const handleSubmit = e => {
         e.preventDefault();
+        setButtonDisabled(true);
         
         fire.database().ref('/registered').push({
             phone: phoneInput,
@@ -76,12 +87,30 @@ const Main = () => {
             localStorage.setItem('easyEnglishRegisteredState', true);
         })
         .then(() => {
-            setButtonDisabled(true);
             history.push('/finished-register')
         })
         .catch(() => {
             alert('Что-то пошло не так!')
+            setPhoneInput('')
         })
+    }
+
+    const handleTimerLeft = time => {
+        if(time < 10){
+            return '0'
+        }else{
+            return String(time).split('')[0]
+        }
+    }
+
+    const handleTimerRight = time => {
+        if(time > 0 && time < 10){
+            return time
+        }else if(time === 0){
+            return '0'
+        }else{
+            return String(time).split('')[1]
+        }
     }
 
     return (
@@ -133,23 +162,7 @@ const Main = () => {
                     <div className={cls.signUp}>
                         <button onClick={() => setModalActive(true)}>Записаться</button>
                         <div className={cls.time}>
-                            <div className={cls.timeRow}>
-                                <div className={cls.minutes}>
-                                    <span className={`${cls.item} ${cls.oneDigit}`}>1</span>
-                                    <span className={cls.item}>5</span>
-                                </div>
-                                <div className={cls.divider}>
-                                    <span>:</span>
-                                </div>
-                                <div className={cls.seconds}>
-                                    <span className={cls.item}>0</span>
-                                    <span className={cls.item}>0</span>
-                                </div>
-                            </div>
-                            <div className={cls.timeText}>
-                                <p>Минуты</p>
-                                <p>Секунды</p>
-                            </div>
+                            <TimerComponent totalTimer={TIMER} cls={cls} handleTimerLeft={handleTimerLeft} handleTimerRight={handleTimerRight} />
                         </div>
                     </div>
                 </div>
@@ -159,7 +172,22 @@ const Main = () => {
                     <div className={cls.top}>
                         <h1>Для записи на пробный урок, пожалуйста, заполни поля ниже</h1>
                         <form className={cls.modalForm}>
-                            <input value={phoneInput} onChange={e => setPhoneInput(e.target.value)} type='number' className={phoneInput ? cls.phoneInput : `${cls.phoneInput} ${cls.phoneInputValid}`} placeholder='Телефон' />
+                            <InputMask 
+                                value={phoneInput} 
+                                onChange={e => {
+                                    const value = e.target.value;
+                                    setPhoneInput(value)
+                                    if(value.length !== 18){
+                                        setIsPhoneError(true);
+                                    }else{
+                                        setIsPhoneError(false)
+                                    }
+                                }}
+                                mask='+7 (999) 999-99-99' 
+                                className={!isPhoneError ? cls.phoneInput : `${cls.phoneInput} ${cls.phoneInputValid}`} 
+                                placeholder='Телефон'
+                                maskChar={null}
+                            />
                             <Select 
                                 options={formatOptions}
                                 dropdownHandle={true}
@@ -194,28 +222,13 @@ const Main = () => {
                         <div className={cls.signUp}>
                             <button className={buttonDisabled ? cls.disabledBtn : null} disabled={buttonDisabled} onClick={handleSubmit}>Записаться</button>
                             <div className={cls.time}>
-                                <div className={cls.timeRow}>
-                                    <div className={cls.minutes}>
-                                        <span className={`${cls.item} ${cls.oneDigit}`}>1</span>
-                                        <span className={cls.item}>5</span>
-                                    </div>
-                                    <div className={cls.divider}>
-                                        <span>:</span>
-                                    </div>
-                                    <div className={cls.seconds}>
-                                        <span className={cls.item}>0</span>
-                                        <span className={cls.item}>0</span>
-                                    </div>
-                                </div>
-                                <div className={cls.timeText}>
-                                    <p>Минуты</p>
-                                    <p>Секунды</p>
-                                </div>
+                                <TimerComponent totalTimer={TIMER} cls={cls} handleTimerLeft={handleTimerLeft} handleTimerRight={handleTimerRight} />
                             </div>
                         </div>
                     </div>
                 </div>
             </Modal>
+                
         </div>
     )
 }
